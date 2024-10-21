@@ -1,34 +1,40 @@
 package org.example;
 
-import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.Selectors;
-import com.codeborne.selenide.Selenide;
-import com.codeborne.selenide.SelenideElement;
+import com.codeborne.selenide.*;
+import org.example.ui.pages.RegisterAccountPage;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.Selenide.element;
 
 public class SimpleUiTest {
+    @BeforeAll
+    public static void setupUiTests() {
+        Configuration.baseUrl = "https://parabank.parasoft.com";
+        //Configuration.browser = "firefox";
+        //Configuration.timeout = 10;
+
+    }
+
+    //DRY = Don't repeat yourself
+    //Web-elements DON't searching in test their are searching for in page object class
+
     @Test
     public void userCanNotCreateAccountWithNameAndSurnameOnly() {
 
         //Preparation
 
-        Selenide.open("https://parabank.parasoft.com/parabank/register.htm");
+        RegisterAccountPage registerAccountPage = new RegisterAccountPage();
+        registerAccountPage.open();
 
         //Steps
-        SelenideElement firstName = element(Selectors.byId("customer.firstName"));
-        firstName.sendKeys("Ольга");
-
-        SelenideElement lastName = element(Selectors.byId("customer.lastName"));
-        lastName.sendKeys("Мюллер");
-
-        SelenideElement registerButton =element(Selectors.byValue("Register"));
-        registerButton.click();
+        registerAccountPage.register("Olga", "Miller");
 
         //Result check
 
-        SelenideElement addressError = element(Selectors.byId("customer.address.street.errors")); //Address
+         //Address
+
+        SelenideElement addressError = element(Selectors.byId("customer.address.street.errors"));
         addressError.shouldHave(Condition.exactText("Address is required."));
 
         SelenideElement addressCityError = element(Selectors.byId("customer.address.city.errors")); //City

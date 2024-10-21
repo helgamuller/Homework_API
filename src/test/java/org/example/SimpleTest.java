@@ -6,6 +6,7 @@ import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.http.ContentType;
 import org.apache.http.HttpStatus;
 import org.example.api.StudentRequests;
+import org.example.api.models.Student;
 import org.hamcrest.Matcher;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -27,7 +28,12 @@ public class SimpleTest {
     @Test
     public void userShouldBeAbleCreateStudent() {
         //given-when-then BDD
-        StudentRequests.createStudent("{\n" + "  \"name\": \"Kate Petrova\",\n" + "  \"grade\": 3\n" + "}");
+
+        //serialization from JSON to object and vice versa
+        //Student student = new Student("Kate P", 2, "");
+        Student student = Student.builder().name("Karina").grade(4).build();
+
+        StudentRequests.createStudent(student);
     }
 
     @Test
@@ -40,14 +46,15 @@ public class SimpleTest {
 
 
         //ШАГ 1 создание студента
-        String id = StudentRequests.createStudent("{\n" + "  \"name\": \"Kate Petrova\",\n" + "  \"grade\": 3\n" + "}");
+        Student student = Student.builder().name("Karina").grade(4).build();
+        Student createdStudent = StudentRequests.createStudent(student);
 
         //STEP 2: DELETE STUDENT
-        StudentRequests.deleteStudent(id);
+        StudentRequests.deleteStudent(createdStudent.getId());
 
         //STEP 3: Check then student  doesn't exist anymore
         given()
-                .get("/student/" +id)
+                .get("/student/" +createdStudent.getId())
                 .then()
                 .assertThat()
                 .statusCode(HttpStatus.SC_NOT_FOUND);
