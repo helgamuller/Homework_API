@@ -3,14 +3,11 @@ package org.example;
 import io.restassured.RestAssured;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
-import io.restassured.http.ContentType;
 import org.apache.http.HttpStatus;
 import org.example.api.StudentRequests;
 import org.example.api.models.Student;
-import org.hamcrest.Matcher;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import io.restassured.RestAssured;
 
 import static io.restassured.RestAssured.given;
 import static io.restassured.RestAssured.post;
@@ -20,7 +17,7 @@ public class SimpleTest {
     @BeforeAll
     public static void setupTests() {
         RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
-        RestAssured.baseURI = "https://crudcrud.com/api/9d6195226a0a4952a5a3524799e8fd7d";
+        RestAssured.baseURI = "https://crudcrud.com/api/962812dda5ca4589a0fcaa885bf98dbc";
 
         //DRY - Don't repeat yourself
     }
@@ -45,8 +42,8 @@ public class SimpleTest {
         //3. FAIL FIRST
 
 
-        //ШАГ 1 создание студента
-        Student student = Student.builder().name("Karina").grade(4).build();
+        //ШАГ 1 создание студенta
+        Student student = Student.builder().name("Katya").grade(2).build();
         Student createdStudent = StudentRequests.createStudent(student);
 
         //STEP 2: DELETE STUDENT

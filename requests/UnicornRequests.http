@@ -1,8 +1,8 @@
-GET https://crudcrud.com/api/9d6195226a0a4952a5a3524799e8fd7d/unicorn/670c28f8a0a8cd03e818a731
+GET https://crudcrud.com/api/962812dda5ca4589a0fcaa885bf98dbc/unicorn/670c28f8a0a8cd03e818a731
 Accept: application/json
 
 ###
-POST https://crudcrud.com/api/9d6195226a0a4952a5a3524799e8fd7d/unicorn
+POST https://crudcrud.com/api/962812dda5ca4589a0fcaa885bf98dbc/unicorn
 Content-Type: application/json
 
 {
@@ -12,7 +12,7 @@ Content-Type: application/json
 
 ###
 
-PUT https://crudcrud.com/api/9d6195226a0a4952a5a3524799e8fd7d/unicorn/670c28f8a0a8cd03e818a731
+PUT https://crudcrud.com/api/962812dda5ca4589a0fcaa885bf98dbc/unicorn/670c28f8a0a8cd03e818a731
 Content-Type: application/json
 
 {
@@ -21,11 +21,11 @@ Content-Type: application/json
 
 ###
 
-DELETE https://crudcrud.com/api/9d6195226a0a4952a5a3524799e8fd7d/unicorn/670b0d5ea0a8cd03e818a60a
+DELETE https://crudcrud.com/api/962812dda5ca4589a0fcaa885bf98dbc/unicorn/670b0d5ea0a8cd03e818a60a
 Accept: application/json
 
 ###
-GET https://crudcrud.com/api/9d6195226a0a4952a5a3524799e8fd7d/unicorn/
+GET https://crudcrud.com/api/962812dda5ca4589a0fcaa885bf98dbc/unicorn/
 Accept: application/json
 
 ###

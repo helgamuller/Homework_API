@@ -1,4 +1,4 @@
-package org.example.task1.car;
+package org.example.hometask2.task1;
 
 public interface Drivable {
     public void start();

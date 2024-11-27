@@ -1,4 +1,4 @@
-package org.example.task1.point;
+package org.example.hometask2.task1;
 
 public class Point implements Movable {
     private int x;

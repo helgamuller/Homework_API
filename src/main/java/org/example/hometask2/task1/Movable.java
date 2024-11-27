@@ -1,4 +1,4 @@
-package org.example.task1.point;
+package org.example.hometask2.task1;
 
 public interface Movable {
     public void moveUp();

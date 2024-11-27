@@ -1,4 +1,4 @@
-package org.example.task1.clock;
+package org.example.hometask2.task1;
 
 public class Clock implements Readable {
     private int hours;

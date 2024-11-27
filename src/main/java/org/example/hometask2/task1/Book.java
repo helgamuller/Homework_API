@@ -1,4 +1,4 @@
-package org.example.task1.book;
+package org.example.hometask2.task1;
 
 public class Book implements Displayable {
 private String name;

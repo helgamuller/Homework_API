@@ -1,10 +1,10 @@
 package org.example;
 
-import org.example.task1.book.Book;
-import org.example.task1.car.Car;
-import org.example.task1.clock.Clock;
-import org.example.task1.point.Point;
-import org.example.task1.student.Student;
+import org.example.hometask2.task1.Book;
+import org.example.hometask2.task1.Car;
+import org.example.hometask2.task1.Clock;
+import org.example.hometask2.task1.Point;
+import org.example.hometask2.task1.Student;
 
 public class Main {
     public static void main(String[] args) {
