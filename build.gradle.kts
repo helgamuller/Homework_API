@@ -13,10 +13,10 @@ dependencies {
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
     testImplementation("io.rest-assured:rest-assured:5.5.0")
-    implementation("com.codeborne:selenide:7.2.1")
-    implementation ("org.slf4j:slf4j-api:2.0.0")  // Библиотека SLF4J
+    implementation("com.codeborne:selenide:7.4.1")
+    implementation ("org.slf4j:slf4j-api:2.0.0")  /* Библиотека SLF4J */
     implementation ("org.slf4j:slf4j-simple:2.0.0")  // Простая реализация для логирования
-    implementation ("org.seleniumhq.selenium:selenium-devtools-v118:4.14.1")
+    implementation ("org.seleniumhq.selenium:selenium-java:4.27.0")
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
     testImplementation("io.rest-assured:rest-assured:4.5.1")
@@ -26,6 +26,7 @@ dependencies {
     annotationProcessor("org.projectlombok:lombok:1.18.32")
     testCompileOnly("org.projectlombok:lombok:1.18.32")
     testAnnotationProcessor("org.projectlombok:lombok:1.18.32")
+    implementation("org.seleniumhq.selenium:selenium-devtools-v131:4.27.0")
 
 
 }

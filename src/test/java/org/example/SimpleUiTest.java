@@ -1,7 +1,9 @@
 package org.example;
 
 import com.codeborne.selenide.*;
+import org.example.ui.datas.BankAccount;
 import org.example.ui.pages.RegisterAccountPage;
+import org.example.utils.RandomData;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -12,98 +14,71 @@ public class SimpleUiTest {
     public static void setupUiTests() {
         Configuration.baseUrl = "https://parabank.parasoft.com";
         //Configuration.browser = "firefox";
-        //Configuration.timeout = 10;
+        Configuration.timeout = 10;
 
     }
 
     //DRY = Don't repeat yourself
-    //Web-elements DON't searching in test their are searching for in page object class
+    //Web-elements DON't searching in test they should be looking  for in PAGE OBJECT class
+    //All Data created in a separated Dataclass
 
     @Test
     public void userCanNotCreateAccountWithNameAndSurnameOnly() {
 
-        //Preparation
+        //Preparation of the page
 
         RegisterAccountPage registerAccountPage = new RegisterAccountPage();
         registerAccountPage.open();
 
+        // Data preparation
+        BankAccount bankAccount = BankAccount.builder()
+                .firstName(RandomData.randomString())
+                .lastName(RandomData.randomString())
+                .build();
+
         //Steps
-        registerAccountPage.register("Olga", "Miller");
+        registerAccountPage.register(bankAccount);
 
         //Result check
-
-         //Address
-
-        SelenideElement addressError = element(Selectors.byId("customer.address.street.errors"));
-        addressError.shouldHave(Condition.exactText("Address is required."));
-
-        SelenideElement addressCityError = element(Selectors.byId("customer.address.city.errors")); //City
-        addressCityError.shouldHave(Condition.exactText("City is required."));
-
-        SelenideElement addressStateError = element(Selectors.byId("customer.address.state.errors"));
-        addressStateError.shouldHave(Condition.exactText("State is required."));
-
-        SelenideElement addressZipCodeError = element(Selectors.byId("customer.address.zipCode.errors"));
-        addressZipCodeError.shouldHave(Condition.exactText("Zip Code is required."));
-
-        SelenideElement ssnError = element(Selectors.byId("customer.ssn.errors"));
-        ssnError.shouldHave(Condition.exactText("Social Security Number is required."));
-
-        SelenideElement userNameError = element(Selectors.byId("customer.username.errors"));
-        userNameError.shouldHave(Condition.exactText("Username is required."));
-
-        SelenideElement passwordError = element(Selectors.byId("customer.password.errors"));
-        passwordError.shouldHave(Condition.exactText("Password is required."));
-
-        SelenideElement passwordConfirmError = element(Selectors.byId("repeatedPassword.errors"));
-        passwordConfirmError.shouldHave(Condition.exactText("Password confirmation is required."));
-
-
-
-
-
-
-        //все оставшиеся обязательные поля
+        registerAccountPage.getAddressError().shouldBe(Condition.exactText("Address is required."));
+        registerAccountPage.getAddressCityError().shouldBe(Condition.exactText("City is required."));
+        registerAccountPage.getAddressStateError().shouldBe(Condition.exactText("State is required."));
+        registerAccountPage.getAddressZipCodeError().shouldBe(Condition.exactText("Zip Code is required."));
+        registerAccountPage.getSsnError().shouldBe(Condition.exactText("Social Security Number is required."));
+        registerAccountPage.getUserNameError().shouldBe(Condition.exactText("Username is required."));
+        registerAccountPage.getPasswordError().shouldBe(Condition.exactText("Password is required."));
+        registerAccountPage.getPasswordConfirmError().shouldBe(Condition.exactText("Password confirmation is required."));
 
 
 
     }
     @Test
     public void userCanBeCreatedWithMandatoryFields() {
-        Selenide.open("https://parabank.parasoft.com/parabank/register.htm");
+        //Preparation of the page
 
-        //Steps
-        SelenideElement firstName = element(Selectors.byId("customer.firstName"));
-        firstName.sendKeys("Ольга");
+        RegisterAccountPage registerAccountPage = new RegisterAccountPage();
+        registerAccountPage.open();
 
-        SelenideElement lastName = element(Selectors.byId("customer.lastName"));
-        lastName.sendKeys("Мюллер");
+        //Data preparation
+        String pwd = RandomData.randomString();
+        String username = RandomData.randomString();
 
-        SelenideElement addressStreet = element(Selectors.byId("customer.address.street")); //Address
-        addressStreet.sendKeys("1650 Birch dr");
+        BankAccount bankAccount = BankAccount.builder()
+               .firstName(RandomData.randomString())
+               .lastName(RandomData.randomString())
+               .address(RandomData.randomString())
+               .city(RandomData.randomString())
+                .state(RandomData.randomString())
+                .zip(RandomData.randomString())
+                .SSN(RandomData.randomString())
+                .username(username)
+                .password(pwd)
+                .passwordConfirmation(pwd).build();
 
-        SelenideElement addressCity = element(Selectors.byId("customer.address.city")); //City
-        addressCity.sendKeys("Duluth");
+        /* Steps */
+        registerAccountPage.register(bankAccount);
 
-        SelenideElement addressState = element(Selectors.byId("customer.address.state"));
-        addressState.sendKeys("GA");
-
-        SelenideElement addressZipCode = element(Selectors.byId("customer.address.zipCode"));
-        addressZipCode.sendKeys("50005");
-
-        SelenideElement ssn = element(Selectors.byId("customer.ssn"));
-        ssn.sendKeys("123-56-675");
-
-        SelenideElement userName = element(Selectors.byId("customer.username"));
-        userName.sendKeys("helga1");
-
-        SelenideElement password = element(Selectors.byId("customer.password"));
-        password.sendKeys("1234567");
-
-        SelenideElement passwordConfirm = element(Selectors.byId("repeatedPassword"));
-        passwordConfirm.sendKeys("1234567");
-
-        SelenideElement registerButton =element(Selectors.byValue("Register"));
-        registerButton.click();
+        //Check result
+        registerAccountPage.getWelcomeTitle().shouldBe(Condition.exactText("Welcome "+ username));
     }
 }
